@@ -10,19 +10,18 @@
 
   :root {
     --bg: #f5f2ee;
-    --text: #2c2825;
-    --muted: #9e9089;
-    --accent: #7a9e8e;
-    --circle-idle: #d6cfc8;
+    --text: #1a1614;
+    --muted: #5c534c;
+    --accent: #4a7a68;
+    --circle-idle: #b8b0a8;
     --circle-active: #a8c4b8;
-    --ring: rgba(122, 158, 142, 0.15);
   }
 
   body {
     background: var(--bg);
     color: var(--text);
     font-family: 'Jost', sans-serif;
-    font-weight: 200;
+    font-weight: 300;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -32,14 +31,13 @@
     letter-spacing: 0.05em;
   }
 
-  /* Subtle background texture */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background:
       radial-gradient(ellipse at 20% 20%, rgba(168, 196, 184, 0.12) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 80%, rgba(122, 158, 142, 0.08) 0%, transparent 60%);
+      radial-gradient(ellipse at 80% 80%, rgba(74, 122, 104, 0.08) 0%, transparent 60%);
     pointer-events: none;
   }
 
@@ -47,31 +45,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0;
     width: 100%;
     max-width: 380px;
     padding: 2rem;
   }
 
-  /* SCREENS */
   .screen { display: none; flex-direction: column; align-items: center; width: 100%; }
   .screen.active { display: flex; }
 
-  /* ── IDLE SCREEN ── */
+  /* ── IDLE ── */
   .title {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 2.4rem;
+    font-weight: 400;
+    font-size: 2.6rem;
     letter-spacing: 0.12em;
     color: var(--text);
     margin-bottom: 0.3rem;
   }
   .subtitle {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     color: var(--muted);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     margin-bottom: 3.5rem;
+    font-weight: 300;
   }
 
   .idle-circle-wrap {
@@ -85,14 +82,14 @@
     position: absolute;
     inset: -18px;
     border-radius: 50%;
-    border: 1px solid rgba(122,158,142,0.2);
+    border: 1px solid rgba(74,122,104,0.25);
     animation: idlePulse 3s ease-in-out infinite;
   }
   .idle-ring-2 {
     position: absolute;
     inset: -36px;
     border-radius: 50%;
-    border: 1px solid rgba(122,158,142,0.1);
+    border: 1px solid rgba(74,122,104,0.12);
     animation: idlePulse 3s ease-in-out infinite 0.5s;
   }
   @keyframes idlePulse {
@@ -108,17 +105,18 @@
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 8px 32px rgba(122,158,142,0.15), 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 8px 32px rgba(74,122,104,0.18), 0 2px 8px rgba(0,0,0,0.08);
   }
   .idle-circle:hover {
     transform: scale(1.04);
-    box-shadow: 0 12px 40px rgba(122,158,142,0.25), 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 12px 40px rgba(74,122,104,0.28), 0 2px 8px rgba(0,0,0,0.08);
   }
   .idle-circle-label {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--accent);
+    font-weight: 300;
   }
 
   .session-info {
@@ -126,16 +124,14 @@
     margin-bottom: 3rem;
   }
   .session-info p {
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     color: var(--muted);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    line-height: 2;
-  }
-  .session-info span {
-    color: var(--accent);
+    line-height: 2.2;
     font-weight: 300;
   }
+  .session-info span { color: var(--accent); font-weight: 400; }
 
   .dots-row {
     display: flex;
@@ -144,102 +140,96 @@
     margin-bottom: 3.5rem;
   }
   .dot {
-    width: 7px;
-    height: 7px;
+    width: 8px; height: 8px;
     border-radius: 50%;
     background: var(--circle-idle);
     transition: background 0.4s;
   }
   .dot.done { background: var(--accent); }
 
-  /* ── BREATHING SCREEN ── */
-  .breath-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
+  /* ── BREATHING ── */
+  .breath-header { text-align: center; margin-bottom: 1.5rem; }
   .session-label {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
+    font-weight: 300;
   }
   .breath-count {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    font-weight: 300;
+    font-size: 1.2rem;
+    font-weight: 400;
     color: var(--text);
     letter-spacing: 0.08em;
   }
 
   .circle-container {
     position: relative;
-    width: 220px;
-    height: 220px;
-    margin-bottom: 2.5rem;
+    width: 280px;
+    height: 280px;
+    margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* Outer ripple rings */
   .ripple {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid var(--accent);
+    border: 1.5px solid var(--accent);
     opacity: 0;
     pointer-events: none;
+    width: 100%;
+    height: 100%;
   }
-  .ripple-1 { width: 100%; height: 100%; }
-  .ripple-2 { width: 100%; height: 100%; }
 
   .main-circle {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     background: radial-gradient(circle at 38% 32%, #d4e6df, var(--circle-active));
-    box-shadow: 0 8px 40px rgba(122,158,142,0.2), 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 8px 40px rgba(74,122,104,0.25), 0 2px 8px rgba(0,0,0,0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.1s ease;
     position: relative;
     z-index: 2;
   }
 
   .phase-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.25em;
+    font-size: 0.65rem;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--accent);
     opacity: 0;
     transition: opacity 0.4s;
+    font-weight: 300;
   }
   .phase-label.visible { opacity: 1; }
 
   .phrase {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 1.35rem;
+    font-size: 1.5rem;
     color: var(--text);
     letter-spacing: 0.06em;
     text-align: center;
     opacity: 0;
     transform: translateY(6px);
     transition: opacity 0.8s ease, transform 0.8s ease;
-    min-height: 2rem;
-    margin-bottom: 2.5rem;
+    min-height: 2.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
   }
-  .phrase.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .phrase.visible { opacity: 1; transform: translateY(0); }
 
   .progress-bar-wrap {
     width: 140px;
     height: 1px;
     background: var(--circle-idle);
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     overflow: hidden;
   }
   .progress-bar {
@@ -249,13 +239,29 @@
     transition: width 0.1s linear;
   }
 
-  /* ── COMPLETE SCREEN ── */
+  .sound-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    padding: 0.3rem 0.6rem;
+    transition: color 0.2s;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+  }
+  .sound-btn:hover { color: var(--text); }
+  .sound-btn.on { color: var(--accent); }
+
+  /* ── COMPLETE ── */
   .complete-circle {
-    width: 160px;
-    height: 160px;
+    width: 160px; height: 160px;
     border-radius: 50%;
     background: radial-gradient(circle at 38% 32%, #d4e6df, var(--circle-active));
-    box-shadow: 0 8px 40px rgba(122,158,142,0.2);
+    box-shadow: 0 8px 40px rgba(74,122,104,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -266,39 +272,37 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
   }
-  .complete-icon {
-    font-size: 1.8rem;
-    opacity: 0.7;
-  }
+  .complete-icon { font-size: 1.8rem; opacity: 0.6; }
   .complete-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
+    font-size: 2.2rem;
+    font-weight: 400;
     letter-spacing: 0.1em;
+    color: var(--text);
     margin-bottom: 0.5rem;
   }
   .complete-phrase {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: var(--muted);
     margin-bottom: 3rem;
     letter-spacing: 0.06em;
   }
   .complete-sessions {
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--muted);
     margin-bottom: 3rem;
+    font-weight: 300;
   }
 
-  /* Buttons */
   .btn {
     font-family: 'Jost', sans-serif;
-    font-weight: 200;
-    font-size: 0.68rem;
-    letter-spacing: 0.25em;
+    font-weight: 300;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--muted);
     background: none;
@@ -309,75 +313,58 @@
     border-radius: 2px;
   }
   .btn:hover { color: var(--text); border-color: var(--muted); }
-  .btn.primary {
-    color: var(--accent);
-    border-color: var(--accent);
-  }
+  .btn.primary { color: var(--accent); border-color: var(--accent); }
   .btn.primary:hover { color: var(--text); border-color: var(--text); }
-
   .btn-row { display: flex; gap: 1rem; }
 </style>
 </head>
 <body>
-
 <div class="app">
 
-  <!-- IDLE SCREEN -->
+  <!-- IDLE -->
   <div class="screen active" id="idle">
     <div class="title">Reset</div>
     <div class="subtitle">5 breaths · 5 times a day</div>
-
     <div class="idle-circle-wrap" onclick="startSession()">
       <div class="idle-ring"></div>
       <div class="idle-ring-2"></div>
-      <div class="idle-circle">
-        <span class="idle-circle-label">begin</span>
-      </div>
+      <div class="idle-circle"><span class="idle-circle-label">begin</span></div>
     </div>
-
     <div class="session-info">
       <p>Sessions today <span id="sessionsToday">0</span> of 5</p>
       <p>Streak <span id="streakCount">0</span> days</p>
     </div>
-
-    <div class="dots-row" id="sessionDots">
-      <div class="dot" id="d0"></div>
-      <div class="dot" id="d1"></div>
-      <div class="dot" id="d2"></div>
-      <div class="dot" id="d3"></div>
+    <div class="dots-row">
+      <div class="dot" id="d0"></div><div class="dot" id="d1"></div>
+      <div class="dot" id="d2"></div><div class="dot" id="d3"></div>
       <div class="dot" id="d4"></div>
     </div>
   </div>
 
-  <!-- BREATHING SCREEN -->
+  <!-- BREATHING -->
   <div class="screen" id="breathing">
     <div class="breath-header">
       <div class="session-label">breath</div>
       <div class="breath-count" id="breathCount">1 of 5</div>
     </div>
-
     <div class="circle-container">
-      <div class="ripple ripple-1" id="ripple1"></div>
-      <div class="ripple ripple-2" id="ripple2"></div>
+      <div class="ripple" id="ripple1"></div>
+      <div class="ripple" id="ripple2"></div>
       <div class="main-circle" id="mainCircle">
         <span class="phase-label" id="phaseLabel"></span>
       </div>
     </div>
-
     <div class="phrase" id="phraseEl"></div>
-
     <div class="progress-bar-wrap">
       <div class="progress-bar" id="progressBar"></div>
     </div>
-
+    <button class="sound-btn on" id="soundBtn" onclick="toggleSound()">♪ sound on</button>
     <button class="btn" onclick="endSession()">end session</button>
   </div>
 
-  <!-- COMPLETE SCREEN -->
+  <!-- COMPLETE -->
   <div class="screen" id="complete">
-    <div class="complete-circle">
-      <div class="complete-icon">◌</div>
-    </div>
+    <div class="complete-circle"><div class="complete-icon">◌</div></div>
     <div class="complete-title">Done.</div>
     <div class="complete-phrase">I am enough.</div>
     <div class="complete-sessions" id="completeSessions"></div>
@@ -390,208 +377,205 @@
 </div>
 
 <script>
-// ── State ──────────────────────────────────────────────────────────
-const PHRASE = "I am enough.";
+// ── Constants ──────────────────────────────────────────────────────
+const PHRASE        = "I am enough.";
 const TOTAL_BREATHS = 5;
+const INHALE_MS     = 4000;
+const HOLD_MS       = 1000;
+const EXHALE_MS     = 6000;
+const PAUSE_MS      = 1000;
+const BREATH_TOTAL  = INHALE_MS + HOLD_MS + EXHALE_MS + PAUSE_MS;
+const SCALE_MIN     = 0.58;   // noticeably small
+const SCALE_MAX     = 1.6;    // noticeably large
 
-// Timing (ms)
-const INHALE_MS  = 4000;   // 4s inhale
-const HOLD_MS    = 1000;   // 1s hold
-const EXHALE_MS  = 6000;   // 6s exhale (longer, activates vagus)
-const PAUSE_MS   = 1000;   // 1s pause before next
+// ── State ──────────────────────────────────────────────────────────
+let currentBreath    = 0;
+let breathTimer      = null;
+let progressInterval = null;
+let soundOn          = true;
+let audioCtx         = null;
+let sessionData      = loadData();
 
-const BREATH_TOTAL = INHALE_MS + HOLD_MS + EXHALE_MS + PAUSE_MS;
+// ── Audio ──────────────────────────────────────────────────────────
+function getCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
 
-let currentBreath = 0;
-let breathTimer = null;
-let sessionData = loadData();
+function playTone(startHz, endHz, durSec, volStart, volEnd) {
+  if (!soundOn) return;
+  const ctx  = getCtx();
+  const osc  = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  const now = ctx.currentTime;
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(startHz, now);
+  osc.frequency.linearRampToValueAtTime(endHz, now + durSec);
+  gain.gain.setValueAtTime(0, now);
+  gain.gain.linearRampToValueAtTime(volStart, now + 0.4);
+  gain.gain.linearRampToValueAtTime(volEnd, now + durSec - 0.5);
+  gain.gain.linearRampToValueAtTime(0, now + durSec);
+  osc.start(now);
+  osc.stop(now + durSec);
+}
+
+// Inhale: rises gently (174→246 Hz) — belly expanding
+// Hold: soft sustained mid tone
+// Exhale: descends slowly (246→174 Hz) — long release
+function playInhale() { playTone(174, 246, INHALE_MS / 1000, 0.07, 0.09); }
+function playHold()   { playTone(246, 246, HOLD_MS   / 1000, 0.05, 0.05); }
+function playExhale() { playTone(246, 174, EXHALE_MS / 1000, 0.09, 0.03); }
+
+function toggleSound() {
+  soundOn = !soundOn;
+  const btn = document.getElementById('soundBtn');
+  btn.textContent = soundOn ? '♪ sound on' : '♪ sound off';
+  btn.classList.toggle('on', soundOn);
+  if (soundOn) getCtx().resume();
+}
 
 // ── Persistence ────────────────────────────────────────────────────
 function loadData() {
-  try {
-    const raw = localStorage.getItem('resetApp');
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
+  try { const r = localStorage.getItem('resetApp'); if (r) return JSON.parse(r); } catch(e) {}
   return { sessions: [], lastDate: null, streak: 0 };
 }
-
 function saveData() {
   try { localStorage.setItem('resetApp', JSON.stringify(sessionData)); } catch(e) {}
 }
-
-function todayStr() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function sessionsToday() {
-  const t = todayStr();
-  return sessionData.sessions.filter(s => s.date === t).length;
-}
-
+function todayStr() { return new Date().toISOString().slice(0, 10); }
+function sessionsToday() { const t = todayStr(); return sessionData.sessions.filter(s => s.date === t).length; }
 function recordSession() {
   const today = todayStr();
   sessionData.sessions.push({ date: today, ts: Date.now() });
-
-  // streak logic
   const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
   if (sessionData.lastDate === yesterday || sessionData.lastDate === today) {
     if (sessionData.lastDate !== today) sessionData.streak = (sessionData.streak || 0) + 1;
-  } else {
-    sessionData.streak = 1;
-  }
+  } else { sessionData.streak = 1; }
   sessionData.lastDate = today;
   saveData();
 }
 
-// ── UI Helpers ─────────────────────────────────────────────────────
+// ── UI ─────────────────────────────────────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-
 function updateIdleUI() {
   const n = sessionsToday();
   document.getElementById('sessionsToday').textContent = n;
   document.getElementById('streakCount').textContent = sessionData.streak || 0;
-  for (let i = 0; i < 5; i++) {
-    document.getElementById('d' + i).classList.toggle('done', i < n);
-  }
+  for (let i = 0; i < 5; i++) document.getElementById('d' + i).classList.toggle('done', i < n);
 }
 
 // ── Animation ──────────────────────────────────────────────────────
-function animateCircle(startScale, endScale, durationMs, easeFn) {
-  const circle = document.getElementById('mainCircle');
-  const start = performance.now();
-  function tick(now) {
-    let t = Math.min((now - start) / durationMs, 1);
-    t = easeFn(t);
-    const scale = startScale + (endScale - startScale) * t;
-    circle.style.transform = `scale(${scale})`;
-    if (t < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-}
+const rs = document.createElement('style');
+rs.textContent = `@keyframes rippleOut {
+  0%   { opacity: 0.5; transform: scale(0.72); }
+  100% { opacity: 0;   transform: scale(1.75); }
+}`;
+document.head.appendChild(rs);
 
+function animateCircle(s0, s1, dur, easeFn) {
+  const el = document.getElementById('mainCircle');
+  const t0 = performance.now();
+  (function tick(now) {
+    let t = Math.min((now - t0) / dur, 1);
+    el.style.transform = `scale(${s0 + (s1 - s0) * easeFn(t)})`;
+    if (t < 1) requestAnimationFrame(tick);
+  })(t0);
+}
 function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
-function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+function easeOut(t)   { return 1 - Math.pow(1-t, 3); }
 
 function setPhase(text) {
   const el = document.getElementById('phaseLabel');
   el.classList.remove('visible');
-  setTimeout(() => { el.textContent = text; el.classList.add('visible'); }, 200);
+  setTimeout(() => { el.textContent = text; el.classList.add('visible'); }, 150);
 }
 
 function showPhrase() {
   const el = document.getElementById('phraseEl');
   el.textContent = PHRASE;
   el.classList.add('visible');
-  setTimeout(() => el.classList.remove('visible'), EXHALE_MS - 800);
+  setTimeout(() => el.classList.remove('visible'), EXHALE_MS - 1000);
 }
 
 function pulseRipple() {
   const r1 = document.getElementById('ripple1');
   const r2 = document.getElementById('ripple2');
   [r1, r2].forEach(r => { r.style.animation = 'none'; r.offsetHeight; });
-  r1.style.animation = 'rippleOut 2s ease-out forwards';
-  setTimeout(() => { r2.style.animation = 'rippleOut 2s ease-out 0.4s forwards'; }, 0);
+  r1.style.animation = 'rippleOut 2.8s ease-out forwards';
+  setTimeout(() => { r2.style.animation = 'rippleOut 2.8s ease-out 0.6s forwards'; }, 0);
 }
 
-// Inject ripple keyframe
-const style = document.createElement('style');
-style.textContent = `
-@keyframes rippleOut {
-  0%   { opacity: 0.5; transform: scale(0.85); }
-  100% { opacity: 0;   transform: scale(1.55); }
-}`;
-document.head.appendChild(style);
-
-// Progress bar
-let progressInterval = null;
 function startProgress() {
-  const bar = document.getElementById('progressBar');
+  const bar   = document.getElementById('progressBar');
   const total = BREATH_TOTAL * TOTAL_BREATHS;
-  const elapsed = currentBreath * BREATH_TOTAL;
-  bar.style.width = (elapsed / total * 100) + '%';
+  bar.style.width = (currentBreath * BREATH_TOTAL / total * 100) + '%';
   clearInterval(progressInterval);
   progressInterval = setInterval(() => {
-    const pct = parseFloat(bar.style.width) || 0;
-    if (pct >= 100) { clearInterval(progressInterval); return; }
-    bar.style.width = (pct + (100 / (total / 100))) + '%';
+    const p = parseFloat(bar.style.width) || 0;
+    if (p >= 100) { clearInterval(progressInterval); return; }
+    bar.style.width = (p + 100 / (total / 100)) + '%';
   }, 100);
 }
 
 // ── Breath Cycle ───────────────────────────────────────────────────
 function runBreath() {
-  if (currentBreath >= TOTAL_BREATHS) {
-    finishSession();
-    return;
-  }
-
+  if (currentBreath >= TOTAL_BREATHS) { finishSession(); return; }
   document.getElementById('breathCount').textContent = `${currentBreath + 1} of ${TOTAL_BREATHS}`;
   startProgress();
 
-  // Inhale
   setPhase('inhale');
-  animateCircle(0.85, 1.25, INHALE_MS, easeInOut);
+  animateCircle(SCALE_MIN, SCALE_MAX, INHALE_MS, easeInOut);
+  playInhale();
 
-  // Hold
   breathTimer = setTimeout(() => {
     setPhase('hold');
-    // circle stays at 1.25
+    playHold();
 
-    // Exhale
     breathTimer = setTimeout(() => {
       setPhase('exhale');
-      animateCircle(1.25, 0.85, EXHALE_MS, easeOut);
+      animateCircle(SCALE_MAX, SCALE_MIN, EXHALE_MS, easeOut);
+      playExhale();
       pulseRipple();
       showPhrase();
 
-      // Pause, then next
       breathTimer = setTimeout(() => {
         setPhase('');
         currentBreath++;
         breathTimer = setTimeout(runBreath, PAUSE_MS);
       }, EXHALE_MS);
-
     }, HOLD_MS);
   }, INHALE_MS);
 }
 
 // ── Session Control ────────────────────────────────────────────────
 function startSession() {
+  try { getCtx().resume(); } catch(e) {}
   currentBreath = 0;
-  document.getElementById('mainCircle').style.transform = 'scale(1)';
+  document.getElementById('mainCircle').style.transform = `scale(${SCALE_MIN})`;
   document.getElementById('phraseEl').textContent = '';
   document.getElementById('phraseEl').classList.remove('visible');
   document.getElementById('progressBar').style.width = '0%';
   showScreen('breathing');
-  setTimeout(runBreath, 600);
+  setTimeout(runBreath, 700);
 }
 
 function finishSession() {
   clearAllTimers();
   recordSession();
-  const n = sessionsToday();
-  document.getElementById('completeSessions').textContent = `${n} of 5 sessions today`;
+  document.getElementById('completeSessions').textContent = `${sessionsToday()} of 5 sessions today`;
   showScreen('complete');
   updateIdleUI();
 }
 
-function endSession() {
-  clearAllTimers();
-  showScreen('idle');
-}
+function endSession() { clearAllTimers(); showScreen('idle'); }
+function goHome()     { showScreen('idle'); }
+function clearAllTimers() { clearTimeout(breathTimer); clearInterval(progressInterval); }
 
-function goHome() {
-  showScreen('idle');
-}
-
-function clearAllTimers() {
-  clearTimeout(breathTimer);
-  clearInterval(progressInterval);
-}
-
-// ── Init ───────────────────────────────────────────────────────────
 updateIdleUI();
 </script>
 </body>
