@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reset</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --bg: #f5f2ee;
-    --text: #1a1614;
-    --muted: #5c534c;
-    --accent: #4a7a68;
-    --circle-idle: #b8b0a8;
+    --text: #14110f;
+    --muted: #3d3530;
+    --accent: #3a6b58;
+    --circle-idle: #a09890;
     --circle-active: #a8c4b8;
   }
 
@@ -36,8 +36,8 @@
     position: fixed;
     inset: 0;
     background:
-      radial-gradient(ellipse at 20% 20%, rgba(168, 196, 184, 0.12) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 80%, rgba(74, 122, 104, 0.08) 0%, transparent 60%);
+      radial-gradient(ellipse at 20% 20%, rgba(168,196,184,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(74,122,104,0.08) 0%, transparent 60%);
     pointer-events: none;
   }
 
@@ -53,6 +53,48 @@
   .screen { display: none; flex-direction: column; align-items: center; width: 100%; }
   .screen.active { display: flex; }
 
+  /* ── SOUND UNLOCK OVERLAY ── */
+  #soundUnlock {
+    position: fixed;
+    inset: 0;
+    background: rgba(245,242,238,0.96);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    gap: 1.5rem;
+  }
+  #soundUnlock p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--text);
+    letter-spacing: 0.06em;
+    text-align: center;
+    padding: 0 2rem;
+  }
+  #soundUnlock small {
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .unlock-btn {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    padding: 1rem 2.5rem;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: opacity 0.2s;
+  }
+  .unlock-btn:hover { opacity: 0.85; }
+
   /* ── IDLE ── */
   .title {
     font-family: 'Cormorant Garamond', serif;
@@ -63,12 +105,12 @@
     margin-bottom: 0.3rem;
   }
   .subtitle {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: var(--muted);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     margin-bottom: 3.5rem;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   .idle-circle-wrap {
@@ -82,18 +124,18 @@
     position: absolute;
     inset: -18px;
     border-radius: 50%;
-    border: 1px solid rgba(74,122,104,0.25);
+    border: 1px solid rgba(58,107,88,0.3);
     animation: idlePulse 3s ease-in-out infinite;
   }
   .idle-ring-2 {
     position: absolute;
     inset: -36px;
     border-radius: 50%;
-    border: 1px solid rgba(74,122,104,0.12);
+    border: 1px solid rgba(58,107,88,0.15);
     animation: idlePulse 3s ease-in-out infinite 0.5s;
   }
   @keyframes idlePulse {
-    0%, 100% { opacity: 0.4; transform: scale(1); }
+    0%, 100% { opacity: 0.5; transform: scale(1); }
     50% { opacity: 1; transform: scale(1.04); }
   }
   .idle-circle {
@@ -105,18 +147,15 @@
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 8px 32px rgba(74,122,104,0.18), 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 32px rgba(58,107,88,0.18), 0 2px 8px rgba(0,0,0,0.08);
   }
-  .idle-circle:hover {
-    transform: scale(1.04);
-    box-shadow: 0 12px 40px rgba(74,122,104,0.28), 0 2px 8px rgba(0,0,0,0.08);
-  }
+  .idle-circle:hover { transform: scale(1.04); }
   .idle-circle-label {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--accent);
-    font-weight: 300;
+    font-weight: 400;
   }
 
   .session-info {
@@ -124,12 +163,12 @@
     margin-bottom: 3rem;
   }
   .session-info p {
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     color: var(--muted);
     letter-spacing: 0.15em;
     text-transform: uppercase;
     line-height: 2.2;
-    font-weight: 300;
+    font-weight: 400;
   }
   .session-info span { color: var(--accent); font-weight: 400; }
 
@@ -139,27 +178,22 @@
     justify-content: center;
     margin-bottom: 3.5rem;
   }
-  .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--circle-idle);
-    transition: background 0.4s;
-  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--circle-idle); transition: background 0.4s; }
   .dot.done { background: var(--accent); }
 
   /* ── BREATHING ── */
   .breath-header { text-align: center; margin-bottom: 1.5rem; }
   .session-label {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--muted);
     margin-bottom: 0.4rem;
-    font-weight: 300;
+    font-weight: 400;
   }
   .breath-count {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 400;
     color: var(--text);
     letter-spacing: 0.08em;
@@ -190,7 +224,7 @@
     height: 130px;
     border-radius: 50%;
     background: radial-gradient(circle at 38% 32%, #d4e6df, var(--circle-active));
-    box-shadow: 0 8px 40px rgba(74,122,104,0.25), 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 40px rgba(58,107,88,0.25), 0 2px 8px rgba(0,0,0,0.08);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -199,13 +233,13 @@
   }
 
   .phase-label {
-    font-size: 0.65rem;
+    font-size: 0.68rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--accent);
     opacity: 0;
     transition: opacity 0.4s;
-    font-weight: 300;
+    font-weight: 400;
   }
   .phase-label.visible { opacity: 1; }
 
@@ -221,7 +255,6 @@
     transition: opacity 0.8s ease, transform 0.8s ease;
     min-height: 2.2rem;
     margin-bottom: 1.5rem;
-    font-weight: 300;
   }
   .phrase.visible { opacity: 1; transform: translateY(0); }
 
@@ -232,39 +265,33 @@
     margin-bottom: 1.5rem;
     overflow: hidden;
   }
-  .progress-bar {
-    height: 100%;
-    background: var(--accent);
-    width: 0%;
-    transition: width 0.1s linear;
-  }
+  .progress-bar { height: 100%; background: var(--accent); width: 0%; transition: width 0.1s linear; }
 
   .sound-btn {
     background: none;
-    border: none;
+    border: 1px solid var(--circle-idle);
     cursor: pointer;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--muted);
     margin-bottom: 1.2rem;
-    padding: 0.3rem 0.6rem;
-    transition: color 0.2s;
+    padding: 0.45rem 1rem;
+    transition: color 0.2s, border-color 0.2s;
     font-family: 'Jost', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
+    border-radius: 2px;
   }
-  .sound-btn:hover { color: var(--text); }
-  .sound-btn.on { color: var(--accent); }
+  .sound-btn:hover { color: var(--text); border-color: var(--muted); }
+  .sound-btn.on { color: var(--accent); border-color: var(--accent); }
 
   /* ── COMPLETE ── */
   .complete-circle {
     width: 160px; height: 160px;
     border-radius: 50%;
     background: radial-gradient(circle at 38% 32%, #d4e6df, var(--circle-active));
-    box-shadow: 0 8px 40px rgba(74,122,104,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    box-shadow: 0 8px 40px rgba(58,107,88,0.2);
+    display: flex; align-items: center; justify-content: center;
     margin-bottom: 2.5rem;
     animation: gentleFloat 3s ease-in-out infinite;
   }
@@ -275,40 +302,29 @@
   .complete-icon { font-size: 1.8rem; opacity: 0.6; }
   .complete-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    color: var(--text);
+    font-size: 2.2rem; font-weight: 400;
+    letter-spacing: 0.1em; color: var(--text);
     margin-bottom: 0.5rem;
   }
   .complete-phrase {
     font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 1.15rem;
-    color: var(--muted);
-    margin-bottom: 3rem;
+    font-style: italic; font-size: 1.15rem;
+    color: var(--muted); margin-bottom: 3rem;
     letter-spacing: 0.06em;
   }
   .complete-sessions {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 3rem;
-    font-weight: 300;
+    font-size: 0.75rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 3rem; font-weight: 400;
   }
 
   .btn {
     font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    background: none;
+    font-weight: 400; font-size: 0.75rem;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted); background: none;
     border: 1px solid var(--circle-idle);
-    padding: 0.75rem 2rem;
-    cursor: pointer;
+    padding: 0.75rem 2rem; cursor: pointer;
     transition: color 0.2s, border-color 0.2s;
     border-radius: 2px;
   }
@@ -319,6 +335,14 @@
 </style>
 </head>
 <body>
+
+<!-- Sound unlock overlay — shown once on first visit -->
+<div id="soundUnlock">
+  <p>Tap to begin your session</p>
+  <button class="unlock-btn" onclick="unlockAudio()">Start</button>
+  <small>Enables breathing sounds</small>
+</div>
+
 <div class="app">
 
   <!-- IDLE -->
@@ -385,8 +409,8 @@ const HOLD_MS       = 1000;
 const EXHALE_MS     = 6000;
 const PAUSE_MS      = 1000;
 const BREATH_TOTAL  = INHALE_MS + HOLD_MS + EXHALE_MS + PAUSE_MS;
-const SCALE_MIN     = 0.58;   // noticeably small
-const SCALE_MAX     = 1.6;    // noticeably large
+const SCALE_MIN     = 0.58;
+const SCALE_MAX     = 1.6;
 
 // ── State ──────────────────────────────────────────────────────────
 let currentBreath    = 0;
@@ -394,36 +418,60 @@ let breathTimer      = null;
 let progressInterval = null;
 let soundOn          = true;
 let audioCtx         = null;
+let audioUnlocked    = false;
 let sessionData      = loadData();
 
-// ── Audio ──────────────────────────────────────────────────────────
+// ── Audio unlock (CRITICAL for iOS + Chrome) ───────────────────────
+// Both iOS Safari and Chrome require audio context to be created AND
+// resumed inside a direct user gesture handler. We do this once via
+// the overlay button, then audio works for the whole session.
+function unlockAudio() {
+  // Create context inside the tap handler
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  // Play a silent buffer — this is the magic that unlocks iOS
+  const buf = audioCtx.createBuffer(1, 1, 22050);
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+  src.connect(audioCtx.destination);
+  src.start(0);
+
+  // Resume in case it was created suspended
+  audioCtx.resume().then(() => { audioUnlocked = true; });
+
+  // Hide overlay
+  document.getElementById('soundUnlock').style.display = 'none';
+}
+
 function getCtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
   return audioCtx;
 }
 
 function playTone(startHz, endHz, durSec, volStart, volEnd) {
-  if (!soundOn) return;
-  const ctx  = getCtx();
-  const osc  = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  const now = ctx.currentTime;
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(startHz, now);
-  osc.frequency.linearRampToValueAtTime(endHz, now + durSec);
-  gain.gain.setValueAtTime(0, now);
-  gain.gain.linearRampToValueAtTime(volStart, now + 0.4);
-  gain.gain.linearRampToValueAtTime(volEnd, now + durSec - 0.5);
-  gain.gain.linearRampToValueAtTime(0, now + durSec);
-  osc.start(now);
-  osc.stop(now + durSec);
+  if (!soundOn || !audioUnlocked) return;
+  try {
+    const ctx  = getCtx();
+    if (ctx.state === 'suspended') ctx.resume();
+    const osc  = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    const now = ctx.currentTime;
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(startHz, now);
+    osc.frequency.linearRampToValueAtTime(endHz, now + durSec);
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(volStart, now + 0.4);
+    gain.gain.linearRampToValueAtTime(volEnd, now + durSec - 0.5);
+    gain.gain.linearRampToValueAtTime(0, now + durSec);
+    osc.start(now);
+    osc.stop(now + durSec);
+  } catch(e) { console.warn('Audio error:', e); }
 }
 
-// Inhale: rises gently (174→246 Hz) — belly expanding
-// Hold: soft sustained mid tone
-// Exhale: descends slowly (246→174 Hz) — long release
 function playInhale() { playTone(174, 246, INHALE_MS / 1000, 0.07, 0.09); }
 function playHold()   { playTone(246, 246, HOLD_MS   / 1000, 0.05, 0.05); }
 function playExhale() { playTone(246, 174, EXHALE_MS / 1000, 0.09, 0.03); }
@@ -433,7 +481,6 @@ function toggleSound() {
   const btn = document.getElementById('soundBtn');
   btn.textContent = soundOn ? '♪ sound on' : '♪ sound off';
   btn.classList.toggle('on', soundOn);
-  if (soundOn) getCtx().resume();
 }
 
 // ── Persistence ────────────────────────────────────────────────────
@@ -554,7 +601,6 @@ function runBreath() {
 
 // ── Session Control ────────────────────────────────────────────────
 function startSession() {
-  try { getCtx().resume(); } catch(e) {}
   currentBreath = 0;
   document.getElementById('mainCircle').style.transform = `scale(${SCALE_MIN})`;
   document.getElementById('phraseEl').textContent = '';
