@@ -33,8 +33,7 @@
 
   body::before {
     content: '';
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background:
       radial-gradient(ellipse at 20% 20%, rgba(168,196,184,0.12) 0%, transparent 60%),
       radial-gradient(ellipse at 80% 80%, rgba(74,122,104,0.08) 0%, transparent 60%);
@@ -42,12 +41,9 @@
   }
 
   .app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 380px;
-    padding: 2rem;
+    display: flex; flex-direction: column;
+    align-items: center; width: 100%;
+    max-width: 380px; padding: 2rem;
   }
 
   .screen { display: none; flex-direction: column; align-items: center; width: 100%; }
@@ -130,11 +126,11 @@
   .dot.done { background: var(--accent); }
 
   /* ── BREATHING SCREEN ── */
-  .breath-header { text-align: center; margin-bottom: 1rem; }
+  .breath-header { text-align: center; margin-bottom: 0.8rem; }
   .session-label {
     font-size: 0.72rem; letter-spacing: 0.22em;
     text-transform: uppercase; color: var(--muted);
-    margin-bottom: 0.4rem; font-weight: 400;
+    margin-bottom: 0.3rem; font-weight: 400;
   }
   .breath-count {
     font-family: 'Cormorant Garamond', serif;
@@ -142,114 +138,152 @@
     color: var(--text); letter-spacing: 0.08em;
   }
 
-  /* Circle container — holds SVG arc + expanding circle */
+  /* Circle + arc container */
   .circle-container {
     position: relative;
     width: 280px; height: 280px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
     display: flex; align-items: center; justify-content: center;
   }
 
-  /* SVG arc ring sits on top, fills container exactly */
   #arcSvg {
-    position: absolute;
-    top: 0; left: 0;
+    position: absolute; top: 0; left: 0;
     width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 3;
+    pointer-events: none; z-index: 3;
   }
-  /* Track ring (background) */
-  #arcTrack {
-    fill: none;
-    stroke: rgba(58,107,88,0.15);
-    stroke-width: 3;
-  }
-  /* Active arc */
-  #arcFill {
-    fill: none;
-    stroke: #3a6b58;
-    stroke-width: 3;
-    stroke-linecap: round;
-    transition: stroke 0.4s;
-  }
+  #arcTrack { fill: none; stroke: rgba(58,107,88,0.15); stroke-width: 3; }
+  #arcFill  { fill: none; stroke: #3a6b58; stroke-width: 3; stroke-linecap: round; }
 
   .ripple {
     position: absolute; border-radius: 50%;
     border: 1.5px solid var(--accent);
-    opacity: 0; pointer-events: none;
-    width: 100%; height: 100%;
+    opacity: 0; pointer-events: none; width: 100%; height: 100%;
   }
 
   .main-circle {
     width: 130px; height: 130px; border-radius: 50%;
     background: radial-gradient(circle at 38% 32%, #d4e6df, var(--circle-active));
     box-shadow: 0 8px 40px rgba(58,107,88,0.25), 0 2px 8px rgba(0,0,0,0.08);
-    display: flex; align-items: center; justify-content: center;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 4px;
     position: relative; z-index: 2;
   }
 
-  .phase-label {
-    font-size: 0.68rem; letter-spacing: 0.28em;
+  /* Phase label — now OUTSIDE the circle, below it */
+  .phase-row {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 2px;
+    min-height: 2.4rem; margin-bottom: 0.4rem;
+  }
+  .phase-word {
+    font-size: 0.75rem; letter-spacing: 0.28em;
     text-transform: uppercase; color: var(--accent);
-    opacity: 0; transition: opacity 0.4s; font-weight: 400;
+    font-weight: 400; opacity: 0;
+    transition: opacity 0.35s ease;
   }
-  .phase-label.visible { opacity: 1; }
+  .phase-word.visible { opacity: 1; }
+  /* Body cue — what the belly is doing */
+  .body-cue {
+    font-size: 0.65rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted);
+    font-weight: 300; opacity: 0;
+    transition: opacity 0.35s ease 0.1s;
+  }
+  .body-cue.visible { opacity: 1; }
 
-  .phrase {
+  /* Affirmation — shown AFTER each breath, held for 2s */
+  .affirmation {
     font-family: 'Cormorant Garamond', serif;
-    font-style: italic; font-size: 1.5rem;
+    font-style: italic; font-size: 1.45rem;
     color: var(--text); letter-spacing: 0.06em;
-    text-align: center; opacity: 0; transform: translateY(6px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-    min-height: 2.2rem; margin-bottom: 1.2rem;
+    text-align: center;
+    opacity: 0; transform: translateY(5px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    min-height: 2rem; margin-bottom: 1rem;
   }
-  .phrase.visible { opacity: 1; transform: translateY(0); }
+  .affirmation.visible { opacity: 1; transform: translateY(0); }
 
+  /* Session progress bar */
   .progress-bar-wrap {
     width: 140px; height: 1px;
     background: var(--circle-idle); margin-bottom: 1.2rem; overflow: hidden;
   }
   .progress-bar { height: 100%; background: var(--accent); width: 0%; transition: width 0.1s linear; }
 
+  /* Sound toggle — minimal, no border, just text */
   .sound-btn {
-    background: none; border: 1px solid var(--circle-idle);
-    cursor: pointer; font-size: 0.7rem; letter-spacing: 0.2em;
+    background: none; border: none;
+    cursor: pointer; font-size: 0.65rem; letter-spacing: 0.2em;
     text-transform: uppercase; color: var(--muted);
-    margin-bottom: 1rem; padding: 0.45rem 1rem;
-    transition: color 0.2s, border-color 0.2s;
-    font-family: 'Jost', sans-serif; font-weight: 400; border-radius: 2px;
+    margin-bottom: 0.8rem; padding: 0.3rem 0;
+    transition: color 0.2s;
+    font-family: 'Jost', sans-serif; font-weight: 400;
   }
-  .sound-btn:hover { color: var(--text); border-color: var(--muted); }
-  .sound-btn.on { color: var(--accent); border-color: var(--accent); }
+  .sound-btn:hover { color: var(--text); }
+  .sound-btn.on { color: var(--accent); }
 
-  /* ── COMPLETE ── */
+  /* End session — very subtle */
+  .end-btn {
+    font-family: 'Jost', sans-serif; font-weight: 300;
+    font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--circle-idle); background: none; border: none;
+    cursor: pointer; transition: color 0.2s; padding: 0.3rem 0;
+  }
+  .end-btn:hover { color: var(--muted); }
+
+  /* ── COMPLETE SCREEN ── */
+  .complete-screen {
+    display: flex; flex-direction: column;
+    align-items: center; width: 100%;
+  }
+
+  /* Quiet moment — phrase held on screen */
+  .complete-moment {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    min-height: 60vh; width: 100%;
+    opacity: 0; transition: opacity 1.2s ease;
+    text-align: center; gap: 2rem;
+  }
+  .complete-moment.visible { opacity: 1; }
+
   .complete-circle {
-    width: 160px; height: 160px; border-radius: 50%;
+    width: 140px; height: 140px; border-radius: 50%;
     background: radial-gradient(circle at 38% 32%, #d4e6df, var(--circle-active));
-    box-shadow: 0 8px 40px rgba(58,107,88,0.2);
+    box-shadow: 0 8px 40px rgba(58,107,88,0.18);
     display: flex; align-items: center; justify-content: center;
-    margin-bottom: 2.5rem;
-    animation: gentleFloat 3s ease-in-out infinite;
+    animation: gentleFloat 4s ease-in-out infinite;
   }
   @keyframes gentleFloat {
-    0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); }
+    0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); }
   }
-  .complete-icon { font-size: 1.8rem; opacity: 0.6; }
-  .complete-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem; font-weight: 400;
-    letter-spacing: 0.1em; color: var(--text); margin-bottom: 0.5rem;
-  }
+  .complete-icon { font-size: 1.6rem; opacity: 0.5; }
+
   .complete-phrase {
     font-family: 'Cormorant Garamond', serif;
-    font-style: italic; font-size: 1.15rem;
-    color: var(--muted); margin-bottom: 3rem; letter-spacing: 0.06em;
+    font-style: italic; font-size: 2rem;
+    color: var(--text); letter-spacing: 0.08em;
+    line-height: 1.4;
   }
-  .complete-sessions {
-    font-size: 0.75rem; letter-spacing: 0.2em;
+  .complete-breath-note {
+    font-size: 0.7rem; letter-spacing: 0.2em;
     text-transform: uppercase; color: var(--muted);
-    margin-bottom: 3rem; font-weight: 400;
+    font-weight: 400;
   }
+
+  /* Buttons appear after moment */
+  .complete-actions {
+    opacity: 0; transition: opacity 0.8s ease;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 1.2rem; padding-bottom: 2rem;
+  }
+  .complete-actions.visible { opacity: 1; }
+  .complete-sessions {
+    font-size: 0.72rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted);
+    font-weight: 400;
+  }
+  .btn-row { display: flex; gap: 1rem; }
   .btn {
     font-family: 'Jost', sans-serif; font-weight: 400; font-size: 0.75rem;
     letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
@@ -260,11 +294,11 @@
   .btn:hover { color: var(--text); border-color: var(--muted); }
   .btn.primary { color: var(--accent); border-color: var(--accent); }
   .btn.primary:hover { color: var(--text); border-color: var(--text); }
-  .btn-row { display: flex; gap: 1rem; }
 </style>
 </head>
 <body>
 
+<!-- Sound unlock overlay -->
 <div id="soundUnlock">
   <p>Tap to begin your session</p>
   <button class="unlock-btn" onclick="unlockAudio()">Start</button>
@@ -300,37 +334,47 @@
     </div>
 
     <div class="circle-container">
-      <!-- SVG arc ring — drawn around the outer edge of the container -->
       <svg id="arcSvg" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
         <circle id="arcTrack" cx="140" cy="140" r="132"/>
-        <circle id="arcFill"  cx="140" cy="140" r="132"
-                transform="rotate(-90 140 140)"/>
+        <circle id="arcFill"  cx="140" cy="140" r="132" transform="rotate(-90 140 140)"/>
       </svg>
-
       <div class="ripple" id="ripple1"></div>
       <div class="ripple" id="ripple2"></div>
-      <div class="main-circle" id="mainCircle">
-        <span class="phase-label" id="phaseLabel"></span>
-      </div>
+      <div class="main-circle" id="mainCircle"></div>
     </div>
 
-    <div class="phrase" id="phraseEl"></div>
+    <!-- Phase + body cue — outside and below circle -->
+    <div class="phase-row">
+      <div class="phase-word" id="phaseWord"></div>
+      <div class="body-cue"   id="bodyCue"></div>
+    </div>
+
+    <!-- Affirmation — appears after each breath -->
+    <div class="affirmation" id="affirmationEl"></div>
+
     <div class="progress-bar-wrap">
       <div class="progress-bar" id="progressBar"></div>
     </div>
+
     <button class="sound-btn on" id="soundBtn" onclick="toggleSound()">♪ sound on</button>
-    <button class="btn" onclick="endSession()">end session</button>
+    <button class="end-btn" onclick="endSession()">end session</button>
   </div>
 
   <!-- COMPLETE -->
   <div class="screen" id="complete">
-    <div class="complete-circle"><div class="complete-icon">◌</div></div>
-    <div class="complete-title">Done.</div>
-    <div class="complete-phrase">I am enough.</div>
-    <div class="complete-sessions" id="completeSessions"></div>
-    <div class="btn-row">
-      <button class="btn" onclick="goHome()">home</button>
-      <button class="btn primary" onclick="startSession()">again</button>
+    <!-- Quiet reflection moment -->
+    <div class="complete-moment" id="completeMoment">
+      <div class="complete-circle"><div class="complete-icon">◌</div></div>
+      <div class="complete-phrase" id="completePhrase">I am enough.</div>
+      <div class="complete-breath-note">breathe. feel it.</div>
+    </div>
+    <!-- Actions fade in after pause -->
+    <div class="complete-actions" id="completeActions">
+      <div class="complete-sessions" id="completeSessions"></div>
+      <div class="btn-row">
+        <button class="btn" onclick="goHome()">home</button>
+        <button class="btn primary" onclick="startSession()">again</button>
+      </div>
     </div>
   </div>
 
@@ -340,55 +384,46 @@
 // ── Constants ──────────────────────────────────────────────────────
 const PHRASE        = "I am enough.";
 const TOTAL_BREATHS = 5;
-const INHALE_MS     = 4000;
-const HOLD_MS       = 1000;
-const EXHALE_MS     = 6000;
-const PAUSE_MS      = 1000;
-const BREATH_TOTAL  = INHALE_MS + HOLD_MS + EXHALE_MS + PAUSE_MS;
-const SCALE_MIN     = 0.58;
-const SCALE_MAX     = 1.6;
+const INHALE_MS     = 4000;   // 4s inhale
+const EXHALE_MS     = 6000;   // 6s exhale — longer for vagal activation
+const PAUSE_MS      = 800;    // brief pause between breaths
+const AFFIRMATION_MS = 2000;  // affirmation held after each breath
+const BREATH_TOTAL  = INHALE_MS + EXHALE_MS + PAUSE_MS + AFFIRMATION_MS;
 
-// Arc geometry: circumference of the ring (r=132)
+const SCALE_MIN = 0.58;
+const SCALE_MAX = 1.6;
+
 const ARC_R = 132;
-const ARC_C = 2 * Math.PI * ARC_R; // ≈ 829.4
+const ARC_C = 2 * Math.PI * ARC_R;
 
-// Phase colours for the arc
 const COLOR_INHALE = '#3a6b58';
-const COLOR_HOLD   = '#7aaa96';
-const COLOR_EXHALE = '#3a6b58';
+const COLOR_EXHALE = '#5a9a82';
 
 // ── State ──────────────────────────────────────────────────────────
 let currentBreath    = 0;
 let breathTimer      = null;
-let arcRafId         = null;
+let arcAnimId        = null;
 let progressInterval = null;
 let soundOn          = true;
 let audioCtx         = null;
 let audioUnlocked    = false;
 let sessionData      = loadData();
 
-// ── Arc ring ───────────────────────────────────────────────────────
-// strokeDasharray trick: full circle = ARC_C
-// dashoffset = ARC_C * (1 - fraction) means 0=empty, 1=full
+// ── Arc ────────────────────────────────────────────────────────────
 const arcEl = document.getElementById('arcFill');
 arcEl.style.strokeDasharray  = ARC_C;
-arcEl.style.strokeDashoffset = ARC_C; // start empty
-
-let arcAnimId = null;
+arcEl.style.strokeDashoffset = ARC_C;
 
 function animateArc(fromFrac, toFrac, durationMs, color, easeFn) {
   cancelAnimationFrame(arcAnimId);
   arcEl.style.stroke = color;
   const t0 = performance.now();
-  function tick(now) {
+  (function tick(now) {
     let t = Math.min((now - t0) / durationMs, 1);
-    const frac = fromFrac + (toFrac - fromFrac) * easeFn(t);
-    arcEl.style.strokeDashoffset = ARC_C * (1 - frac);
+    arcEl.style.strokeDashoffset = ARC_C * (1 - (fromFrac + (toFrac - fromFrac) * easeFn(t)));
     if (t < 1) arcAnimId = requestAnimationFrame(tick);
-  }
-  arcAnimId = requestAnimationFrame(tick);
+  })(t0);
 }
-
 function clearArc() {
   cancelAnimationFrame(arcAnimId);
   arcEl.style.strokeDashoffset = ARC_C;
@@ -399,9 +434,7 @@ function unlockAudio() {
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   const buf = audioCtx.createBuffer(1, 1, 22050);
   const src = audioCtx.createBufferSource();
-  src.buffer = buf;
-  src.connect(audioCtx.destination);
-  src.start(0);
+  src.buffer = buf; src.connect(audioCtx.destination); src.start(0);
   audioCtx.resume().then(() => { audioUnlocked = true; });
   document.getElementById('soundUnlock').style.display = 'none';
 }
@@ -430,9 +463,8 @@ function playTone(startHz, endHz, durSec, volStart, volEnd) {
   } catch(e) {}
 }
 
-function playInhale() { playTone(174, 246, INHALE_MS/1000, 0.07, 0.09); }
-function playHold()   { playTone(246, 246, HOLD_MS/1000,   0.05, 0.05); }
-function playExhale() { playTone(246, 174, EXHALE_MS/1000, 0.09, 0.03); }
+function playInhale() { playTone(174, 246, INHALE_MS / 1000, 0.07, 0.09); }
+function playExhale() { playTone(246, 174, EXHALE_MS / 1000, 0.09, 0.03); }
 
 function toggleSound() {
   soundOn = !soundOn;
@@ -448,13 +480,13 @@ function loadData() {
 }
 function saveData() { try { localStorage.setItem('resetApp', JSON.stringify(sessionData)); } catch(e) {} }
 function todayStr() { return new Date().toISOString().slice(0, 10); }
-function sessionsToday() { const t = todayStr(); return sessionData.sessions.filter(s => s.date === t).length; }
+function sessionsToday() { return sessionData.sessions.filter(s => s.date === todayStr()).length; }
 function recordSession() {
   const today = todayStr();
   sessionData.sessions.push({ date: today, ts: Date.now() });
-  const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
   if (sessionData.lastDate === yesterday || sessionData.lastDate === today) {
-    if (sessionData.lastDate !== today) sessionData.streak = (sessionData.streak||0)+1;
+    if (sessionData.lastDate !== today) sessionData.streak = (sessionData.streak || 0) + 1;
   } else { sessionData.streak = 1; }
   sessionData.lastDate = today;
   saveData();
@@ -468,8 +500,8 @@ function showScreen(id) {
 function updateIdleUI() {
   const n = sessionsToday();
   document.getElementById('sessionsToday').textContent = n;
-  document.getElementById('streakCount').textContent = sessionData.streak||0;
-  for (let i=0;i<5;i++) document.getElementById('d'+i).classList.toggle('done', i<n);
+  document.getElementById('streakCount').textContent = sessionData.streak || 0;
+  for (let i = 0; i < 5; i++) document.getElementById('d' + i).classList.toggle('done', i < n);
 }
 
 // ── Animation ──────────────────────────────────────────────────────
@@ -484,80 +516,95 @@ function animateCircle(s0, s1, dur, easeFn) {
   const el = document.getElementById('mainCircle');
   const t0 = performance.now();
   (function tick(now) {
-    let t = Math.min((now-t0)/dur,1);
-    el.style.transform = `scale(${s0+(s1-s0)*easeFn(t)})`;
-    if (t<1) requestAnimationFrame(tick);
+    let t = Math.min((now - t0) / dur, 1);
+    el.style.transform = `scale(${s0 + (s1 - s0) * easeFn(t)})`;
+    if (t < 1) requestAnimationFrame(tick);
   })(t0);
 }
-function easeInOut(t) { return t<0.5?2*t*t:-1+(4-2*t)*t; }
-function easeOut(t)   { return 1-Math.pow(1-t,3); }
-function linear(t)    { return t; }
+function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+function easeOut(t)   { return 1 - Math.pow(1 - t, 3); }
 
-function setPhase(text) {
-  const el = document.getElementById('phaseLabel');
-  el.classList.remove('visible');
-  setTimeout(()=>{ el.textContent=text; el.classList.add('visible'); }, 150);
+// Phase + body cue (outside circle)
+function setPhase(word, cue) {
+  const pw = document.getElementById('phaseWord');
+  const bc = document.getElementById('bodyCue');
+  pw.classList.remove('visible'); bc.classList.remove('visible');
+  setTimeout(() => {
+    pw.textContent = word || '';
+    bc.textContent = cue  || '';
+    if (word) pw.classList.add('visible');
+    if (cue)  bc.classList.add('visible');
+  }, 150);
 }
 
-function showPhrase() {
-  const el = document.getElementById('phraseEl');
-  el.textContent = PHRASE; el.classList.add('visible');
-  setTimeout(()=>el.classList.remove('visible'), EXHALE_MS-1000);
+// Affirmation — shown AFTER the breath completes
+function showAffirmation(onDone) {
+  const el = document.getElementById('affirmationEl');
+  el.textContent = PHRASE;
+  el.classList.add('visible');
+  breathTimer = setTimeout(() => {
+    el.classList.remove('visible');
+    setTimeout(onDone, 400); // brief gap before next breath
+  }, AFFIRMATION_MS);
+}
+
+function hideAffirmation() {
+  const el = document.getElementById('affirmationEl');
+  el.classList.remove('visible');
+  el.textContent = '';
 }
 
 function pulseRipple() {
-  const r1=document.getElementById('ripple1'), r2=document.getElementById('ripple2');
-  [r1,r2].forEach(r=>{ r.style.animation='none'; r.offsetHeight; });
-  r1.style.animation='rippleOut 2.8s ease-out forwards';
-  setTimeout(()=>{ r2.style.animation='rippleOut 2.8s ease-out 0.6s forwards'; },0);
+  const r1 = document.getElementById('ripple1'), r2 = document.getElementById('ripple2');
+  [r1, r2].forEach(r => { r.style.animation = 'none'; r.offsetHeight; });
+  r1.style.animation = 'rippleOut 2.8s ease-out forwards';
+  setTimeout(() => { r2.style.animation = 'rippleOut 2.8s ease-out 0.6s forwards'; }, 0);
 }
 
 function startProgress() {
-  const bar=document.getElementById('progressBar');
-  const total=BREATH_TOTAL*TOTAL_BREATHS;
-  bar.style.width=(currentBreath*BREATH_TOTAL/total*100)+'%';
+  const bar   = document.getElementById('progressBar');
+  const total = BREATH_TOTAL * TOTAL_BREATHS;
+  bar.style.width = (currentBreath * BREATH_TOTAL / total * 100) + '%';
   clearInterval(progressInterval);
-  progressInterval=setInterval(()=>{
-    const p=parseFloat(bar.style.width)||0;
-    if(p>=100){clearInterval(progressInterval);return;}
-    bar.style.width=(p+100/(total/100))+'%';
-  },100);
+  progressInterval = setInterval(() => {
+    const p = parseFloat(bar.style.width) || 0;
+    if (p >= 100) { clearInterval(progressInterval); return; }
+    bar.style.width = (p + 100 / (total / 100)) + '%';
+  }, 100);
 }
 
-// ── Breath Cycle ───────────────────────────────────────────────────
+// ── Breath Cycle (no hold — straight inhale → exhale) ──────────────
 function runBreath() {
   if (currentBreath >= TOTAL_BREATHS) { finishSession(); return; }
-  document.getElementById('breathCount').textContent = `${currentBreath+1} of ${TOTAL_BREATHS}`;
-  startProgress();
 
-  // INHALE — arc fills from 0→1
-  setPhase('inhale');
+  document.getElementById('breathCount').textContent = `${currentBreath + 1} of ${TOTAL_BREATHS}`;
+  startProgress();
+  hideAffirmation();
+
+  // INHALE — belly rises
+  setPhase('inhale', 'belly rises');
   animateCircle(SCALE_MIN, SCALE_MAX, INHALE_MS, easeInOut);
   animateArc(0, 1, INHALE_MS, COLOR_INHALE, easeInOut);
   playInhale();
 
   breathTimer = setTimeout(() => {
-    // HOLD — arc pulses gently (stays full, colour shift)
-    setPhase('hold');
-    animateArc(1, 1, HOLD_MS, COLOR_HOLD, linear);
-    playHold();
+    // EXHALE — belly falls (no hold between)
+    setPhase('exhale', 'belly falls');
+    animateCircle(SCALE_MAX, SCALE_MIN, EXHALE_MS, easeOut);
+    animateArc(1, 0, EXHALE_MS, COLOR_EXHALE, easeOut);
+    playExhale();
+    pulseRipple();
 
     breathTimer = setTimeout(() => {
-      // EXHALE — arc drains from 1→0
-      setPhase('exhale');
-      animateCircle(SCALE_MAX, SCALE_MIN, EXHALE_MS, easeOut);
-      animateArc(1, 0, EXHALE_MS, COLOR_EXHALE, easeOut);
-      playExhale();
-      pulseRipple();
-      showPhrase();
-
-      breathTimer = setTimeout(() => {
-        setPhase('');
-        clearArc();
-        currentBreath++;
+      // After exhale: show affirmation, then next breath
+      setPhase('', '');
+      clearArc();
+      currentBreath++;
+      showAffirmation(() => {
         breathTimer = setTimeout(runBreath, PAUSE_MS);
-      }, EXHALE_MS);
-    }, HOLD_MS);
+      });
+    }, EXHALE_MS);
+
   }, INHALE_MS);
 }
 
@@ -565,8 +612,7 @@ function runBreath() {
 function startSession() {
   currentBreath = 0;
   document.getElementById('mainCircle').style.transform = `scale(${SCALE_MIN})`;
-  document.getElementById('phraseEl').textContent = '';
-  document.getElementById('phraseEl').classList.remove('visible');
+  hideAffirmation();
   document.getElementById('progressBar').style.width = '0%';
   clearArc();
   showScreen('breathing');
@@ -576,14 +622,32 @@ function startSession() {
 function finishSession() {
   clearAllTimers();
   recordSession();
+
+  // Show complete screen
+  const moment  = document.getElementById('completeMoment');
+  const actions = document.getElementById('completeActions');
   document.getElementById('completeSessions').textContent = `${sessionsToday()} of 5 sessions today`;
+  moment.classList.remove('visible');
+  actions.classList.remove('visible');
   showScreen('complete');
+
+  // Fade in the quiet moment
+  setTimeout(() => {
+    moment.classList.add('visible');
+    // Buttons appear after the pause — let the phrase land first
+    setTimeout(() => actions.classList.add('visible'), 3500);
+  }, 100);
+
   updateIdleUI();
 }
 
-function endSession() { clearAllTimers(); clearArc(); showScreen('idle'); }
+function endSession() { clearAllTimers(); clearArc(); hideAffirmation(); showScreen('idle'); }
 function goHome()     { showScreen('idle'); }
-function clearAllTimers() { clearTimeout(breathTimer); clearInterval(progressInterval); cancelAnimationFrame(arcAnimId); }
+function clearAllTimers() {
+  clearTimeout(breathTimer);
+  clearInterval(progressInterval);
+  cancelAnimationFrame(arcAnimId);
+}
 
 updateIdleUI();
 </script>
