@@ -55,82 +55,50 @@
 
   /* ── SOUND UNLOCK OVERLAY ── */
   #soundUnlock {
-    position: fixed;
-    inset: 0;
-    background: rgba(245,242,238,0.96);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    gap: 1.5rem;
+    position: fixed; inset: 0;
+    background: rgba(245,242,238,0.97);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 100; gap: 1.5rem;
   }
   #soundUnlock p {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    color: var(--text);
-    letter-spacing: 0.06em;
-    text-align: center;
-    padding: 0 2rem;
+    font-size: 1.3rem; color: var(--text);
+    letter-spacing: 0.06em; text-align: center; padding: 0 2rem;
   }
   #soundUnlock small {
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    font-size: 0.7rem; color: var(--muted);
+    letter-spacing: 0.15em; text-transform: uppercase;
   }
   .unlock-btn {
-    font-family: 'Jost', sans-serif;
-    font-weight: 400;
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: #fff;
-    background: var(--accent);
-    border: none;
-    padding: 1rem 2.5rem;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: opacity 0.2s;
+    font-family: 'Jost', sans-serif; font-weight: 400;
+    font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: #fff; background: var(--accent); border: none;
+    padding: 1rem 2.5rem; cursor: pointer; border-radius: 2px;
   }
-  .unlock-btn:hover { opacity: 0.85; }
 
   /* ── IDLE ── */
   .title {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-size: 2.6rem;
-    letter-spacing: 0.12em;
-    color: var(--text);
-    margin-bottom: 0.3rem;
+    font-weight: 400; font-size: 2.6rem;
+    letter-spacing: 0.12em; color: var(--text); margin-bottom: 0.3rem;
   }
   .subtitle {
-    font-size: 0.78rem;
-    color: var(--muted);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 3.5rem;
-    font-weight: 400;
+    font-size: 0.78rem; color: var(--muted);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 3.5rem; font-weight: 400;
   }
-
   .idle-circle-wrap {
-    position: relative;
-    width: 180px;
-    height: 180px;
-    margin-bottom: 3rem;
-    cursor: pointer;
+    position: relative; width: 180px; height: 180px;
+    margin-bottom: 3rem; cursor: pointer;
   }
   .idle-ring {
-    position: absolute;
-    inset: -18px;
-    border-radius: 50%;
+    position: absolute; inset: -18px; border-radius: 50%;
     border: 1px solid rgba(58,107,88,0.3);
     animation: idlePulse 3s ease-in-out infinite;
   }
   .idle-ring-2 {
-    position: absolute;
-    inset: -36px;
-    border-radius: 50%;
+    position: absolute; inset: -36px; border-radius: 50%;
     border: 1px solid rgba(58,107,88,0.15);
     animation: idlePulse 3s ease-in-out infinite 0.5s;
   }
@@ -139,156 +107,124 @@
     50% { opacity: 1; transform: scale(1.04); }
   }
   .idle-circle {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
+    width: 180px; height: 180px; border-radius: 50%;
     background: radial-gradient(circle at 40% 35%, #c8ddd6, var(--circle-idle));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s ease;
     box-shadow: 0 8px 32px rgba(58,107,88,0.18), 0 2px 8px rgba(0,0,0,0.08);
   }
   .idle-circle:hover { transform: scale(1.04); }
   .idle-circle-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 400;
+    font-size: 0.72rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--accent); font-weight: 400;
   }
-
-  .session-info {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
+  .session-info { text-align: center; margin-bottom: 3rem; }
   .session-info p {
-    font-size: 0.82rem;
-    color: var(--muted);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    line-height: 2.2;
-    font-weight: 400;
+    font-size: 0.82rem; color: var(--muted);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    line-height: 2.2; font-weight: 400;
   }
   .session-info span { color: var(--accent); font-weight: 400; }
-
-  .dots-row {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 3.5rem;
-  }
+  .dots-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 3.5rem; }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--circle-idle); transition: background 0.4s; }
   .dot.done { background: var(--accent); }
 
-  /* ── BREATHING ── */
-  .breath-header { text-align: center; margin-bottom: 1.5rem; }
+  /* ── BREATHING SCREEN ── */
+  .breath-header { text-align: center; margin-bottom: 1rem; }
   .session-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.4rem;
-    font-weight: 400;
+    font-size: 0.72rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 0.4rem; font-weight: 400;
   }
   .breath-count {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: var(--text);
-    letter-spacing: 0.08em;
+    font-size: 1.3rem; font-weight: 400;
+    color: var(--text); letter-spacing: 0.08em;
   }
 
+  /* Circle container — holds SVG arc + expanding circle */
   .circle-container {
     position: relative;
-    width: 280px;
-    height: 280px;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 280px; height: 280px;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* SVG arc ring sits on top, fills container exactly */
+  #arcSvg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 3;
+  }
+  /* Track ring (background) */
+  #arcTrack {
+    fill: none;
+    stroke: rgba(58,107,88,0.15);
+    stroke-width: 3;
+  }
+  /* Active arc */
+  #arcFill {
+    fill: none;
+    stroke: #3a6b58;
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke 0.4s;
   }
 
   .ripple {
-    position: absolute;
-    border-radius: 50%;
+    position: absolute; border-radius: 50%;
     border: 1.5px solid var(--accent);
-    opacity: 0;
-    pointer-events: none;
-    width: 100%;
-    height: 100%;
+    opacity: 0; pointer-events: none;
+    width: 100%; height: 100%;
   }
 
   .main-circle {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
+    width: 130px; height: 130px; border-radius: 50%;
     background: radial-gradient(circle at 38% 32%, #d4e6df, var(--circle-active));
     box-shadow: 0 8px 40px rgba(58,107,88,0.25), 0 2px 8px rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 2;
   }
 
   .phase-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--accent);
-    opacity: 0;
-    transition: opacity 0.4s;
-    font-weight: 400;
+    font-size: 0.68rem; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--accent);
+    opacity: 0; transition: opacity 0.4s; font-weight: 400;
   }
   .phase-label.visible { opacity: 1; }
 
   .phrase {
     font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 1.5rem;
-    color: var(--text);
-    letter-spacing: 0.06em;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(6px);
+    font-style: italic; font-size: 1.5rem;
+    color: var(--text); letter-spacing: 0.06em;
+    text-align: center; opacity: 0; transform: translateY(6px);
     transition: opacity 0.8s ease, transform 0.8s ease;
-    min-height: 2.2rem;
-    margin-bottom: 1.5rem;
+    min-height: 2.2rem; margin-bottom: 1.2rem;
   }
   .phrase.visible { opacity: 1; transform: translateY(0); }
 
   .progress-bar-wrap {
-    width: 140px;
-    height: 1px;
-    background: var(--circle-idle);
-    margin-bottom: 1.5rem;
-    overflow: hidden;
+    width: 140px; height: 1px;
+    background: var(--circle-idle); margin-bottom: 1.2rem; overflow: hidden;
   }
   .progress-bar { height: 100%; background: var(--accent); width: 0%; transition: width 0.1s linear; }
 
   .sound-btn {
-    background: none;
-    border: 1px solid var(--circle-idle);
-    cursor: pointer;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 1.2rem;
-    padding: 0.45rem 1rem;
+    background: none; border: 1px solid var(--circle-idle);
+    cursor: pointer; font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 1rem; padding: 0.45rem 1rem;
     transition: color 0.2s, border-color 0.2s;
-    font-family: 'Jost', sans-serif;
-    font-weight: 400;
-    border-radius: 2px;
+    font-family: 'Jost', sans-serif; font-weight: 400; border-radius: 2px;
   }
   .sound-btn:hover { color: var(--text); border-color: var(--muted); }
   .sound-btn.on { color: var(--accent); border-color: var(--accent); }
 
   /* ── COMPLETE ── */
   .complete-circle {
-    width: 160px; height: 160px;
-    border-radius: 50%;
+    width: 160px; height: 160px; border-radius: 50%;
     background: radial-gradient(circle at 38% 32%, #d4e6df, var(--circle-active));
     box-shadow: 0 8px 40px rgba(58,107,88,0.2);
     display: flex; align-items: center; justify-content: center;
@@ -296,37 +232,30 @@
     animation: gentleFloat 3s ease-in-out infinite;
   }
   @keyframes gentleFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+    0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); }
   }
   .complete-icon { font-size: 1.8rem; opacity: 0.6; }
   .complete-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.2rem; font-weight: 400;
-    letter-spacing: 0.1em; color: var(--text);
-    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em; color: var(--text); margin-bottom: 0.5rem;
   }
   .complete-phrase {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic; font-size: 1.15rem;
-    color: var(--muted); margin-bottom: 3rem;
-    letter-spacing: 0.06em;
+    color: var(--muted); margin-bottom: 3rem; letter-spacing: 0.06em;
   }
   .complete-sessions {
     font-size: 0.75rem; letter-spacing: 0.2em;
     text-transform: uppercase; color: var(--muted);
     margin-bottom: 3rem; font-weight: 400;
   }
-
   .btn {
-    font-family: 'Jost', sans-serif;
-    font-weight: 400; font-size: 0.75rem;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--muted); background: none;
-    border: 1px solid var(--circle-idle);
+    font-family: 'Jost', sans-serif; font-weight: 400; font-size: 0.75rem;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+    background: none; border: 1px solid var(--circle-idle);
     padding: 0.75rem 2rem; cursor: pointer;
-    transition: color 0.2s, border-color 0.2s;
-    border-radius: 2px;
+    transition: color 0.2s, border-color 0.2s; border-radius: 2px;
   }
   .btn:hover { color: var(--text); border-color: var(--muted); }
   .btn.primary { color: var(--accent); border-color: var(--accent); }
@@ -336,7 +265,6 @@
 </head>
 <body>
 
-<!-- Sound unlock overlay — shown once on first visit -->
 <div id="soundUnlock">
   <p>Tap to begin your session</p>
   <button class="unlock-btn" onclick="unlockAudio()">Start</button>
@@ -350,8 +278,7 @@
     <div class="title">Reset</div>
     <div class="subtitle">5 breaths · 5 times a day</div>
     <div class="idle-circle-wrap" onclick="startSession()">
-      <div class="idle-ring"></div>
-      <div class="idle-ring-2"></div>
+      <div class="idle-ring"></div><div class="idle-ring-2"></div>
       <div class="idle-circle"><span class="idle-circle-label">begin</span></div>
     </div>
     <div class="session-info">
@@ -371,13 +298,22 @@
       <div class="session-label">breath</div>
       <div class="breath-count" id="breathCount">1 of 5</div>
     </div>
+
     <div class="circle-container">
+      <!-- SVG arc ring — drawn around the outer edge of the container -->
+      <svg id="arcSvg" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+        <circle id="arcTrack" cx="140" cy="140" r="132"/>
+        <circle id="arcFill"  cx="140" cy="140" r="132"
+                transform="rotate(-90 140 140)"/>
+      </svg>
+
       <div class="ripple" id="ripple1"></div>
       <div class="ripple" id="ripple2"></div>
       <div class="main-circle" id="mainCircle">
         <span class="phase-label" id="phaseLabel"></span>
       </div>
     </div>
+
     <div class="phrase" id="phraseEl"></div>
     <div class="progress-bar-wrap">
       <div class="progress-bar" id="progressBar"></div>
@@ -412,53 +348,76 @@ const BREATH_TOTAL  = INHALE_MS + HOLD_MS + EXHALE_MS + PAUSE_MS;
 const SCALE_MIN     = 0.58;
 const SCALE_MAX     = 1.6;
 
+// Arc geometry: circumference of the ring (r=132)
+const ARC_R = 132;
+const ARC_C = 2 * Math.PI * ARC_R; // ≈ 829.4
+
+// Phase colours for the arc
+const COLOR_INHALE = '#3a6b58';
+const COLOR_HOLD   = '#7aaa96';
+const COLOR_EXHALE = '#3a6b58';
+
 // ── State ──────────────────────────────────────────────────────────
 let currentBreath    = 0;
 let breathTimer      = null;
+let arcRafId         = null;
 let progressInterval = null;
 let soundOn          = true;
 let audioCtx         = null;
 let audioUnlocked    = false;
 let sessionData      = loadData();
 
-// ── Audio unlock (CRITICAL for iOS + Chrome) ───────────────────────
-// Both iOS Safari and Chrome require audio context to be created AND
-// resumed inside a direct user gesture handler. We do this once via
-// the overlay button, then audio works for the whole session.
-function unlockAudio() {
-  // Create context inside the tap handler
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+// ── Arc ring ───────────────────────────────────────────────────────
+// strokeDasharray trick: full circle = ARC_C
+// dashoffset = ARC_C * (1 - fraction) means 0=empty, 1=full
+const arcEl = document.getElementById('arcFill');
+arcEl.style.strokeDasharray  = ARC_C;
+arcEl.style.strokeDashoffset = ARC_C; // start empty
 
-  // Play a silent buffer — this is the magic that unlocks iOS
+let arcAnimId = null;
+
+function animateArc(fromFrac, toFrac, durationMs, color, easeFn) {
+  cancelAnimationFrame(arcAnimId);
+  arcEl.style.stroke = color;
+  const t0 = performance.now();
+  function tick(now) {
+    let t = Math.min((now - t0) / durationMs, 1);
+    const frac = fromFrac + (toFrac - fromFrac) * easeFn(t);
+    arcEl.style.strokeDashoffset = ARC_C * (1 - frac);
+    if (t < 1) arcAnimId = requestAnimationFrame(tick);
+  }
+  arcAnimId = requestAnimationFrame(tick);
+}
+
+function clearArc() {
+  cancelAnimationFrame(arcAnimId);
+  arcEl.style.strokeDashoffset = ARC_C;
+}
+
+// ── Audio ──────────────────────────────────────────────────────────
+function unlockAudio() {
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   const buf = audioCtx.createBuffer(1, 1, 22050);
   const src = audioCtx.createBufferSource();
   src.buffer = buf;
   src.connect(audioCtx.destination);
   src.start(0);
-
-  // Resume in case it was created suspended
   audioCtx.resume().then(() => { audioUnlocked = true; });
-
-  // Hide overlay
   document.getElementById('soundUnlock').style.display = 'none';
 }
 
 function getCtx() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return audioCtx;
 }
 
 function playTone(startHz, endHz, durSec, volStart, volEnd) {
   if (!soundOn || !audioUnlocked) return;
   try {
-    const ctx  = getCtx();
+    const ctx = getCtx();
     if (ctx.state === 'suspended') ctx.resume();
-    const osc  = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
+    const osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
     const now = ctx.currentTime;
     osc.type = 'sine';
     osc.frequency.setValueAtTime(startHz, now);
@@ -467,14 +426,13 @@ function playTone(startHz, endHz, durSec, volStart, volEnd) {
     gain.gain.linearRampToValueAtTime(volStart, now + 0.4);
     gain.gain.linearRampToValueAtTime(volEnd, now + durSec - 0.5);
     gain.gain.linearRampToValueAtTime(0, now + durSec);
-    osc.start(now);
-    osc.stop(now + durSec);
-  } catch(e) { console.warn('Audio error:', e); }
+    osc.start(now); osc.stop(now + durSec);
+  } catch(e) {}
 }
 
-function playInhale() { playTone(174, 246, INHALE_MS / 1000, 0.07, 0.09); }
-function playHold()   { playTone(246, 246, HOLD_MS   / 1000, 0.05, 0.05); }
-function playExhale() { playTone(246, 174, EXHALE_MS / 1000, 0.09, 0.03); }
+function playInhale() { playTone(174, 246, INHALE_MS/1000, 0.07, 0.09); }
+function playHold()   { playTone(246, 246, HOLD_MS/1000,   0.05, 0.05); }
+function playExhale() { playTone(246, 174, EXHALE_MS/1000, 0.09, 0.03); }
 
 function toggleSound() {
   soundOn = !soundOn;
@@ -488,17 +446,15 @@ function loadData() {
   try { const r = localStorage.getItem('resetApp'); if (r) return JSON.parse(r); } catch(e) {}
   return { sessions: [], lastDate: null, streak: 0 };
 }
-function saveData() {
-  try { localStorage.setItem('resetApp', JSON.stringify(sessionData)); } catch(e) {}
-}
+function saveData() { try { localStorage.setItem('resetApp', JSON.stringify(sessionData)); } catch(e) {} }
 function todayStr() { return new Date().toISOString().slice(0, 10); }
 function sessionsToday() { const t = todayStr(); return sessionData.sessions.filter(s => s.date === t).length; }
 function recordSession() {
   const today = todayStr();
   sessionData.sessions.push({ date: today, ts: Date.now() });
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
   if (sessionData.lastDate === yesterday || sessionData.lastDate === today) {
-    if (sessionData.lastDate !== today) sessionData.streak = (sessionData.streak || 0) + 1;
+    if (sessionData.lastDate !== today) sessionData.streak = (sessionData.streak||0)+1;
   } else { sessionData.streak = 1; }
   sessionData.lastDate = today;
   saveData();
@@ -512,15 +468,15 @@ function showScreen(id) {
 function updateIdleUI() {
   const n = sessionsToday();
   document.getElementById('sessionsToday').textContent = n;
-  document.getElementById('streakCount').textContent = sessionData.streak || 0;
-  for (let i = 0; i < 5; i++) document.getElementById('d' + i).classList.toggle('done', i < n);
+  document.getElementById('streakCount').textContent = sessionData.streak||0;
+  for (let i=0;i<5;i++) document.getElementById('d'+i).classList.toggle('done', i<n);
 }
 
 // ── Animation ──────────────────────────────────────────────────────
 const rs = document.createElement('style');
 rs.textContent = `@keyframes rippleOut {
-  0%   { opacity: 0.5; transform: scale(0.72); }
-  100% { opacity: 0;   transform: scale(1.75); }
+  0%   { opacity:0.5; transform:scale(0.72); }
+  100% { opacity:0;   transform:scale(1.75); }
 }`;
 document.head.appendChild(rs);
 
@@ -528,70 +484,76 @@ function animateCircle(s0, s1, dur, easeFn) {
   const el = document.getElementById('mainCircle');
   const t0 = performance.now();
   (function tick(now) {
-    let t = Math.min((now - t0) / dur, 1);
-    el.style.transform = `scale(${s0 + (s1 - s0) * easeFn(t)})`;
-    if (t < 1) requestAnimationFrame(tick);
+    let t = Math.min((now-t0)/dur,1);
+    el.style.transform = `scale(${s0+(s1-s0)*easeFn(t)})`;
+    if (t<1) requestAnimationFrame(tick);
   })(t0);
 }
-function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
-function easeOut(t)   { return 1 - Math.pow(1-t, 3); }
+function easeInOut(t) { return t<0.5?2*t*t:-1+(4-2*t)*t; }
+function easeOut(t)   { return 1-Math.pow(1-t,3); }
+function linear(t)    { return t; }
 
 function setPhase(text) {
   const el = document.getElementById('phaseLabel');
   el.classList.remove('visible');
-  setTimeout(() => { el.textContent = text; el.classList.add('visible'); }, 150);
+  setTimeout(()=>{ el.textContent=text; el.classList.add('visible'); }, 150);
 }
 
 function showPhrase() {
   const el = document.getElementById('phraseEl');
-  el.textContent = PHRASE;
-  el.classList.add('visible');
-  setTimeout(() => el.classList.remove('visible'), EXHALE_MS - 1000);
+  el.textContent = PHRASE; el.classList.add('visible');
+  setTimeout(()=>el.classList.remove('visible'), EXHALE_MS-1000);
 }
 
 function pulseRipple() {
-  const r1 = document.getElementById('ripple1');
-  const r2 = document.getElementById('ripple2');
-  [r1, r2].forEach(r => { r.style.animation = 'none'; r.offsetHeight; });
-  r1.style.animation = 'rippleOut 2.8s ease-out forwards';
-  setTimeout(() => { r2.style.animation = 'rippleOut 2.8s ease-out 0.6s forwards'; }, 0);
+  const r1=document.getElementById('ripple1'), r2=document.getElementById('ripple2');
+  [r1,r2].forEach(r=>{ r.style.animation='none'; r.offsetHeight; });
+  r1.style.animation='rippleOut 2.8s ease-out forwards';
+  setTimeout(()=>{ r2.style.animation='rippleOut 2.8s ease-out 0.6s forwards'; },0);
 }
 
 function startProgress() {
-  const bar   = document.getElementById('progressBar');
-  const total = BREATH_TOTAL * TOTAL_BREATHS;
-  bar.style.width = (currentBreath * BREATH_TOTAL / total * 100) + '%';
+  const bar=document.getElementById('progressBar');
+  const total=BREATH_TOTAL*TOTAL_BREATHS;
+  bar.style.width=(currentBreath*BREATH_TOTAL/total*100)+'%';
   clearInterval(progressInterval);
-  progressInterval = setInterval(() => {
-    const p = parseFloat(bar.style.width) || 0;
-    if (p >= 100) { clearInterval(progressInterval); return; }
-    bar.style.width = (p + 100 / (total / 100)) + '%';
-  }, 100);
+  progressInterval=setInterval(()=>{
+    const p=parseFloat(bar.style.width)||0;
+    if(p>=100){clearInterval(progressInterval);return;}
+    bar.style.width=(p+100/(total/100))+'%';
+  },100);
 }
 
 // ── Breath Cycle ───────────────────────────────────────────────────
 function runBreath() {
   if (currentBreath >= TOTAL_BREATHS) { finishSession(); return; }
-  document.getElementById('breathCount').textContent = `${currentBreath + 1} of ${TOTAL_BREATHS}`;
+  document.getElementById('breathCount').textContent = `${currentBreath+1} of ${TOTAL_BREATHS}`;
   startProgress();
 
+  // INHALE — arc fills from 0→1
   setPhase('inhale');
   animateCircle(SCALE_MIN, SCALE_MAX, INHALE_MS, easeInOut);
+  animateArc(0, 1, INHALE_MS, COLOR_INHALE, easeInOut);
   playInhale();
 
   breathTimer = setTimeout(() => {
+    // HOLD — arc pulses gently (stays full, colour shift)
     setPhase('hold');
+    animateArc(1, 1, HOLD_MS, COLOR_HOLD, linear);
     playHold();
 
     breathTimer = setTimeout(() => {
+      // EXHALE — arc drains from 1→0
       setPhase('exhale');
       animateCircle(SCALE_MAX, SCALE_MIN, EXHALE_MS, easeOut);
+      animateArc(1, 0, EXHALE_MS, COLOR_EXHALE, easeOut);
       playExhale();
       pulseRipple();
       showPhrase();
 
       breathTimer = setTimeout(() => {
         setPhase('');
+        clearArc();
         currentBreath++;
         breathTimer = setTimeout(runBreath, PAUSE_MS);
       }, EXHALE_MS);
@@ -606,6 +568,7 @@ function startSession() {
   document.getElementById('phraseEl').textContent = '';
   document.getElementById('phraseEl').classList.remove('visible');
   document.getElementById('progressBar').style.width = '0%';
+  clearArc();
   showScreen('breathing');
   setTimeout(runBreath, 700);
 }
@@ -618,9 +581,9 @@ function finishSession() {
   updateIdleUI();
 }
 
-function endSession() { clearAllTimers(); showScreen('idle'); }
+function endSession() { clearAllTimers(); clearArc(); showScreen('idle'); }
 function goHome()     { showScreen('idle'); }
-function clearAllTimers() { clearTimeout(breathTimer); clearInterval(progressInterval); }
+function clearAllTimers() { clearTimeout(breathTimer); clearInterval(progressInterval); cancelAnimationFrame(arcAnimId); }
 
 updateIdleUI();
 </script>
