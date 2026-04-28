@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reset</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f2ee;
+    --text: #2c2825;
+    --muted: #9e9089;
+    --accent: #7a9e8e;
+    --circle-idle: #d6cfc8;
+    --circle-active: #a8c4b8;
+    --ring: rgba(122, 158, 142, 0.15);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    letter-spacing: 0.05em;
+  }
+
+  /* Subtle background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(168, 196, 184, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(122, 158, 142, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: 380px;
+    padding: 2rem;
+  }
+
+  /* SCREENS */
+  .screen { display: none; flex-direction: column; align-items: center; width: 100%; }
+  .screen.active { display: flex; }
+
+  /* ── IDLE SCREEN ── */
+  .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 2.4rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+  .subtitle {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 3.5rem;
+  }
+
+  .idle-circle-wrap {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin-bottom: 3rem;
+    cursor: pointer;
+  }
+  .idle-ring {
+    position: absolute;
+    inset: -18px;
+    border-radius: 50%;
+    border: 1px solid rgba(122,158,142,0.2);
+    animation: idlePulse 3s ease-in-out infinite;
+  }
+  .idle-ring-2 {
+    position: absolute;
+    inset: -36px;
+    border-radius: 50%;
+    border: 1px solid rgba(122,158,142,0.1);
+    animation: idlePulse 3s ease-in-out infinite 0.5s;
+  }
+  @keyframes idlePulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.04); }
+  }
+  .idle-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #c8ddd6, var(--circle-idle));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 32px rgba(122,158,142,0.15), 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .idle-circle:hover {
+    transform: scale(1.04);
+    box-shadow: 0 12px 40px rgba(122,158,142,0.25), 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .idle-circle-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .session-info {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .session-info p {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 2;
+  }
+  .session-info span {
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  .dots-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 3.5rem;
+  }
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--circle-idle);
+    transition: background 0.4s;
+  }
+  .dot.done { background: var(--accent); }
+
+  /* ── BREATHING SCREEN ── */
+  .breath-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .session-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .breath-count {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text);
+    letter-spacing: 0.08em;
+  }
+
+  .circle-container {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Outer ripple rings */
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ripple-1 { width: 100%; height: 100%; }
+  .ripple-2 { width: 100%; height: 100%; }
+
+  .main-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 32%, #d4e6df, var(--circle-active));
+    box-shadow: 0 8px 40px rgba(122,158,142,0.2), 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  .phase-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .phase-label.visible { opacity: 1; }
+
+  .phrase {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.35rem;
+    color: var(--text);
+    letter-spacing: 0.06em;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    min-height: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .phrase.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .progress-bar-wrap {
+    width: 140px;
+    height: 1px;
+    background: var(--circle-idle);
+    margin-bottom: 3rem;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* ── COMPLETE SCREEN ── */
+  .complete-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 32%, #d4e6df, var(--circle-active));
+    box-shadow: 0 8px 40px rgba(122,158,142,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    animation: gentleFloat 3s ease-in-out infinite;
+  }
+  @keyframes gentleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .complete-icon {
+    font-size: 1.8rem;
+    opacity: 0.7;
+  }
+  .complete-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .complete-phrase {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    letter-spacing: 0.06em;
+  }
+  .complete-sessions {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3rem;
+  }
+
+  /* Buttons */
+  .btn {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--circle-idle);
+    padding: 0.75rem 2rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    border-radius: 2px;
+  }
+  .btn:hover { color: var(--text); border-color: var(--muted); }
+  .btn.primary {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .btn.primary:hover { color: var(--text); border-color: var(--text); }
+
+  .btn-row { display: flex; gap: 1rem; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- IDLE SCREEN -->
+  <div class="screen active" id="idle">
+    <div class="title">Reset</div>
+    <div class="subtitle">5 breaths · 5 times a day</div>
+
+    <div class="idle-circle-wrap" onclick="startSession()">
+      <div class="idle-ring"></div>
+      <div class="idle-ring-2"></div>
+      <div class="idle-circle">
+        <span class="idle-circle-label">begin</span>
+      </div>
+    </div>
+
+    <div class="session-info">
+      <p>Sessions today <span id="sessionsToday">0</span> of 5</p>
+      <p>Streak <span id="streakCount">0</span> days</p>
+    </div>
+
+    <div class="dots-row" id="sessionDots">
+      <div class="dot" id="d0"></div>
+      <div class="dot" id="d1"></div>
+      <div class="dot" id="d2"></div>
+      <div class="dot" id="d3"></div>
+      <div class="dot" id="d4"></div>
+    </div>
+  </div>
+
+  <!-- BREATHING SCREEN -->
+  <div class="screen" id="breathing">
+    <div class="breath-header">
+      <div class="session-label">breath</div>
+      <div class="breath-count" id="breathCount">1 of 5</div>
+    </div>
+
+    <div class="circle-container">
+      <div class="ripple ripple-1" id="ripple1"></div>
+      <div class="ripple ripple-2" id="ripple2"></div>
+      <div class="main-circle" id="mainCircle">
+        <span class="phase-label" id="phaseLabel"></span>
+      </div>
+    </div>
+
+    <div class="phrase" id="phraseEl"></div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <button class="btn" onclick="endSession()">end session</button>
+  </div>
+
+  <!-- COMPLETE SCREEN -->
+  <div class="screen" id="complete">
+    <div class="complete-circle">
+      <div class="complete-icon">◌</div>
+    </div>
+    <div class="complete-title">Done.</div>
+    <div class="complete-phrase">I am enough.</div>
+    <div class="complete-sessions" id="completeSessions"></div>
+    <div class="btn-row">
+      <button class="btn" onclick="goHome()">home</button>
+      <button class="btn primary" onclick="startSession()">again</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────
+const PHRASE = "I am enough.";
+const TOTAL_BREATHS = 5;
+
+// Timing (ms)
+const INHALE_MS  = 4000;   // 4s inhale
+const HOLD_MS    = 1000;   // 1s hold
+const EXHALE_MS  = 6000;   // 6s exhale (longer, activates vagus)
+const PAUSE_MS   = 1000;   // 1s pause before next
+
+const BREATH_TOTAL = INHALE_MS + HOLD_MS + EXHALE_MS + PAUSE_MS;
+
+let currentBreath = 0;
+let breathTimer = null;
+let sessionData = loadData();
+
+// ── Persistence ────────────────────────────────────────────────────
+function loadData() {
+  try {
+    const raw = localStorage.getItem('resetApp');
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return { sessions: [], lastDate: null, streak: 0 };
+}
+
+function saveData() {
+  try { localStorage.setItem('resetApp', JSON.stringify(sessionData)); } catch(e) {}
+}
+
+function todayStr() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function sessionsToday() {
+  const t = todayStr();
+  return sessionData.sessions.filter(s => s.date === t).length;
+}
+
+function recordSession() {
+  const today = todayStr();
+  sessionData.sessions.push({ date: today, ts: Date.now() });
+
+  // streak logic
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  if (sessionData.lastDate === yesterday || sessionData.lastDate === today) {
+    if (sessionData.lastDate !== today) sessionData.streak = (sessionData.streak || 0) + 1;
+  } else {
+    sessionData.streak = 1;
+  }
+  sessionData.lastDate = today;
+  saveData();
+}
+
+// ── UI Helpers ─────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateIdleUI() {
+  const n = sessionsToday();
+  document.getElementById('sessionsToday').textContent = n;
+  document.getElementById('streakCount').textContent = sessionData.streak || 0;
+  for (let i = 0; i < 5; i++) {
+    document.getElementById('d' + i).classList.toggle('done', i < n);
+  }
+}
+
+// ── Animation ──────────────────────────────────────────────────────
+function animateCircle(startScale, endScale, durationMs, easeFn) {
+  const circle = document.getElementById('mainCircle');
+  const start = performance.now();
+  function tick(now) {
+    let t = Math.min((now - start) / durationMs, 1);
+    t = easeFn(t);
+    const scale = startScale + (endScale - startScale) * t;
+    circle.style.transform = `scale(${scale})`;
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+function setPhase(text) {
+  const el = document.getElementById('phaseLabel');
+  el.classList.remove('visible');
+  setTimeout(() => { el.textContent = text; el.classList.add('visible'); }, 200);
+}
+
+function showPhrase() {
+  const el = document.getElementById('phraseEl');
+  el.textContent = PHRASE;
+  el.classList.add('visible');
+  setTimeout(() => el.classList.remove('visible'), EXHALE_MS - 800);
+}
+
+function pulseRipple() {
+  const r1 = document.getElementById('ripple1');
+  const r2 = document.getElementById('ripple2');
+  [r1, r2].forEach(r => { r.style.animation = 'none'; r.offsetHeight; });
+  r1.style.animation = 'rippleOut 2s ease-out forwards';
+  setTimeout(() => { r2.style.animation = 'rippleOut 2s ease-out 0.4s forwards'; }, 0);
+}
+
+// Inject ripple keyframe
+const style = document.createElement('style');
+style.textContent = `
+@keyframes rippleOut {
+  0%   { opacity: 0.5; transform: scale(0.85); }
+  100% { opacity: 0;   transform: scale(1.55); }
+}`;
+document.head.appendChild(style);
+
+// Progress bar
+let progressInterval = null;
+function startProgress() {
+  const bar = document.getElementById('progressBar');
+  const total = BREATH_TOTAL * TOTAL_BREATHS;
+  const elapsed = currentBreath * BREATH_TOTAL;
+  bar.style.width = (elapsed / total * 100) + '%';
+  clearInterval(progressInterval);
+  progressInterval = setInterval(() => {
+    const pct = parseFloat(bar.style.width) || 0;
+    if (pct >= 100) { clearInterval(progressInterval); return; }
+    bar.style.width = (pct + (100 / (total / 100))) + '%';
+  }, 100);
+}
+
+// ── Breath Cycle ───────────────────────────────────────────────────
+function runBreath() {
+  if (currentBreath >= TOTAL_BREATHS) {
+    finishSession();
+    return;
+  }
+
+  document.getElementById('breathCount').textContent = `${currentBreath + 1} of ${TOTAL_BREATHS}`;
+  startProgress();
+
+  // Inhale
+  setPhase('inhale');
+  animateCircle(0.85, 1.25, INHALE_MS, easeInOut);
+
+  // Hold
+  breathTimer = setTimeout(() => {
+    setPhase('hold');
+    // circle stays at 1.25
+
+    // Exhale
+    breathTimer = setTimeout(() => {
+      setPhase('exhale');
+      animateCircle(1.25, 0.85, EXHALE_MS, easeOut);
+      pulseRipple();
+      showPhrase();
+
+      // Pause, then next
+      breathTimer = setTimeout(() => {
+        setPhase('');
+        currentBreath++;
+        breathTimer = setTimeout(runBreath, PAUSE_MS);
+      }, EXHALE_MS);
+
+    }, HOLD_MS);
+  }, INHALE_MS);
+}
+
+// ── Session Control ────────────────────────────────────────────────
+function startSession() {
+  currentBreath = 0;
+  document.getElementById('mainCircle').style.transform = 'scale(1)';
+  document.getElementById('phraseEl').textContent = '';
+  document.getElementById('phraseEl').classList.remove('visible');
+  document.getElementById('progressBar').style.width = '0%';
+  showScreen('breathing');
+  setTimeout(runBreath, 600);
+}
+
+function finishSession() {
+  clearAllTimers();
+  recordSession();
+  const n = sessionsToday();
+  document.getElementById('completeSessions').textContent = `${n} of 5 sessions today`;
+  showScreen('complete');
+  updateIdleUI();
+}
+
+function endSession() {
+  clearAllTimers();
+  showScreen('idle');
+}
+
+function goHome() {
+  showScreen('idle');
+}
+
+function clearAllTimers() {
+  clearTimeout(breathTimer);
+  clearInterval(progressInterval);
+}
+
+// ── Init ───────────────────────────────────────────────────────────
+updateIdleUI();
+</script>
+</body>
+</html>
